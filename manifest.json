@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Payments-Sheriff",
+  "version": "1.0",
+  "icons": {
+    "128": "icon.png"
+  },
+  "description": "Highlight timestamps with a yellow background color when the time difference exceeds N seconds.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://eu-central-1.console.aws.amazon.com/cloudwatch/*"
+      ],
+      "js": [
+        "aws-logs-highlighter.js"
+      ],
+      "all_frames": true
+    }
+  ],
+  "optional_permissions": [
+    "tabs"
+  ],
+  "permissions": [
+    "activeTab",
+    "webNavigation",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://eu-central-1.console.aws.amazon.com/cloudwatch/*"
+  ]
+}
