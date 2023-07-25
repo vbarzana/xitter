@@ -1,12 +1,13 @@
 const TWITTER_REGEXP = /Twitter/gi
 const TWEET_REGEXP = /Tweet/gi
+const GET_VERIFIED_REGEXP = /Get Verified/gi
 
 function replacePlaceholder(node) {
     if (node.placeholder && (
-        node.placeholder.match(TWITTER_REGEXP) || node.placeholder.match(TWEET_REGEXP))) {
+        node.placeholder.match(TWITTER_REGEXP) || node.placeholder.match(TWEET_REGEXP) || node.placeholder.match(GET_VERIFIED_REGEXP))) {
         node.placeholder = node.placeholder
             .replace(TWITTER_REGEXP, 'Xitter')
-            .replace(TWEET_REGEXP, 'Xeet');
+            .replace(TWEET_REGEXP, 'Xeet').replace(GET_VERIFIED_REGEXP, 'Get Xeeted');
     }
 }
 
@@ -14,7 +15,7 @@ const replaceText = (node) => {
     if (node.nodeValue.match(TWITTER_REGEXP) || node.nodeValue.match(TWEET_REGEXP)) {
         node.nodeValue = node.nodeValue
             .replace(TWITTER_REGEXP, 'Xitter')
-            .replace(TWEET_REGEXP, 'Xeet');
+            .replace(TWEET_REGEXP, 'Xeet').replace(GET_VERIFIED_REGEXP, 'Get Xeeted');
     }
 };
 
