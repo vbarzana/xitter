@@ -9,11 +9,22 @@ const replaceText = (node) => {
     }
 };
 
-const walk = (node) => {
-    if (node && node.getAttribute && node.getAttribute('data-testid') === 'tweetButtonInline') {
-        console.log('found tweet button', node);
+function isProcessable(node) {
+    if (!node) {
+        return true;
     }
-    if (!node || !node.getAttribute || node.getAttribute('data-testid') === 'tweetText') {
+    // we don't want to change users' tweets and users' new tweet being typed
+    const testIdAttr = node.getAttribute && node.getAttribute('data-testid') || '';
+    if (testIdAttr === 'tweetText' ||
+        testIdAttr.indexOf('tweetTextarea') >= 0) {
+        return false;
+    }
+    return isProcessable(node.parentNode);
+}
+
+const walk = (node) => {
+    const testIdAttr = node && node.getAttribute && node.getAttribute('data-testid') || '';
+    if (!isProcessable(node)) {
         return;
     }
     const childNodes = node.childNodes;
@@ -32,19 +43,13 @@ function observeDOMChanges() {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 for (const node of mutation.addedNodes) {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        replaceText(node);
-                    } else {
-                        walk(node);
-                    }
+                    walk(node);
                 }
-            } else if (mutation.type === 'characterData') {
-                walk(mutation.target);
             }
         }
     });
 
-    observer.observe(document.body, {subtree: true, characterData: true, childList: true});
+    observer.observe(document.body, {subtree: true, childList: true});
 }
 
 walk(document.body);
