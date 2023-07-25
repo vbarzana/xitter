@@ -1,31 +1,23 @@
 {
   "manifest_version": 3,
-  "name": "Payments-Sheriff",
+  "name": "Twitter to Xitter",
   "version": "1.0",
+  "description": "Replace 'Twitter' with 'Xitter' on Twitter's website.",
   "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
     "128": "icon.png"
   },
-  "description": "Highlight timestamps with a yellow background color when the time difference exceeds N seconds.",
   "content_scripts": [
     {
       "matches": [
-        "https://eu-central-1.console.aws.amazon.com/cloudwatch/*"
+        "*://twitter.com/*"
       ],
       "js": [
-        "aws-logs-highlighter.js"
+        "replacer.js"
       ],
-      "all_frames": true
+      "all_frames": true,
+      "run_at": "document_end"
     }
-  ],
-  "optional_permissions": [
-    "tabs"
-  ],
-  "permissions": [
-    "activeTab",
-    "webNavigation",
-    "webRequest"
-  ],
-  "host_permissions": [
-    "https://eu-central-1.console.aws.amazon.com/cloudwatch/*"
   ]
 }
