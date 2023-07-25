@@ -27,11 +27,6 @@ const walk = (node) => {
     }
 };
 
-function updateTweetButton() {
-    const tweetButton = document.querySelector('[data-testid="tweetButtonInline"]');
-    walk(tweetButton);
-}
-
 function observeDOMChanges() {
     const observer = new MutationObserver((mutationsList) => {
         for (const mutation of mutationsList) {
@@ -52,10 +47,8 @@ function observeDOMChanges() {
     observer.observe(document.body, {subtree: true, characterData: true, childList: true});
 }
 
-updateTweetButton();
 walk(document.body);
-
 setTimeout(function () {
-    updateTweetButton();
+    walk(document.body);
     observeDOMChanges();
 }, 1000);
