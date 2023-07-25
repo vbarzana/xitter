@@ -16,14 +16,14 @@ function isProcessable(node) {
     // we don't want to change users' tweets and users' new tweet being typed
     const testIdAttr = node.getAttribute && node.getAttribute('data-testid') || '';
     if (testIdAttr === 'tweetText' ||
-        testIdAttr.indexOf('tweetTextarea') >= 0) {
+        testIdAttr.indexOf('tweetTextarea') >= 0
+    ) {
         return false;
     }
     return isProcessable(node.parentNode);
 }
 
 const walk = (node) => {
-    const testIdAttr = node && node.getAttribute && node.getAttribute('data-testid') || '';
     if (!isProcessable(node)) {
         return;
     }
