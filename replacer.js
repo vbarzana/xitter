@@ -50,13 +50,7 @@ const walk = (node) => {
 
 function observeDOMChanges() {
     const observer = new MutationObserver((mutationsList) => {
-        for (const mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-                for (const node of mutation.addedNodes) {
-                    walk(node);
-                }
-            }
-        }
+        xeetIt();
     });
 
     observer.observe(document.body, {subtree: true, childList: true});
