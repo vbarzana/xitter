@@ -1,8 +1,18 @@
 const TWITTER_REGEXP = /Twitter/gi
 const TWEET_REGEXP = /Tweet/gi
 
+function replacePlaceholder(node) {
+    if (node.placeholder && (
+        node.placeholder.match(TWITTER_REGEXP) || node.placeholder.match(TWEET_REGEXP))) {
+        console.error('placeholder', node);
+        node.placeholder = node.placeholder
+            .replace(TWITTER_REGEXP, 'Xitter')
+            .replace(TWEET_REGEXP, 'Xeet');
+    }
+}
+
 const replaceText = (node) => {
-    if (node.nodeValue.match(TWEET_REGEXP) || node.nodeValue.match(TWEET_REGEXP)) {
+    if (node.nodeValue.match(TWITTER_REGEXP) || node.nodeValue.match(TWEET_REGEXP)) {
         node.nodeValue = node.nodeValue
             .replace(TWITTER_REGEXP, 'Xitter')
             .replace(TWEET_REGEXP, 'Xeet');
@@ -52,8 +62,16 @@ function observeDOMChanges() {
     observer.observe(document.body, {subtree: true, childList: true});
 }
 
-walk(document.body);
-setTimeout(function () {
+function xeetIt() {
     walk(document.body);
+    const inputs = Array.from(document.getElementsByTagName('input'));
+    for (let input of inputs) {
+        replacePlaceholder(input);
+    }
+}
+
+xeetIt();
+setTimeout(function () {
+    xeetIt();
     observeDOMChanges();
 }, 1000);
