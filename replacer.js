@@ -4,7 +4,6 @@ const TWEET_REGEXP = /Tweet/gi
 function replacePlaceholder(node) {
     if (node.placeholder && (
         node.placeholder.match(TWITTER_REGEXP) || node.placeholder.match(TWEET_REGEXP))) {
-        console.error('placeholder', node);
         node.placeholder = node.placeholder
             .replace(TWITTER_REGEXP, 'Xitter')
             .replace(TWEET_REGEXP, 'Xeet');
@@ -37,6 +36,7 @@ const walk = (node) => {
     if (!isProcessable(node)) {
         return;
     }
+    replacePlaceholder(node);
     const childNodes = node.childNodes;
     for (let i = 0; i < childNodes.length; i++) {
         const childNode = childNodes[i];
