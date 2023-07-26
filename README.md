@@ -1,6 +1,4 @@
 # Xitter - Chrome Extension
-A chrome extension that replaces in twitter website 'Twitter' by 'Xitter' and 'Tweet' by 'Xeet'
-
 ![Xitter Logo](icon.png)
 
 ## Description
